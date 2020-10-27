@@ -6,12 +6,31 @@
 //  Copyright © 2016 Elias Farhan. All rights reserved.
 //
 
-#ifndef Characters_hpp
-#define Characters_hpp
+#pragma once
 
-#include <iostraem>
+#include <iostream>
 
-class Character;
+class Character
+{
+public:
+    Character
+    (
+    int health_,
+    int attack_,
+    int defense_,
+    int strength_
+    );
+    bool Character::isAlive();
+    void Character::takeDamage(int damage);
+    int Character::getAttack(int attack);
+    int Character::getDefense(int defense);
+
+protected:
+    static int health; // need static?
+    static int attack;
+    static int defense;
+    static int strength;
+};
 
 class Monster : public Character
 {
@@ -19,20 +38,20 @@ class Monster : public Character
 public:
     Monster(int,int,int,int);
     void takeDamage(int damage);
-    void fight(Hero*);
+    void fight(Hero);
     void death();
 };
 
-class Hero : Character
+class Hero : public Character
 {
 public:
     Hero(int,int,int,int);
     void takeDamage(int damage);
     void fight(Monster*);
     void death();
-};)
+};
 
-class Character
+/*class Character
 {
 public:
     Character(int,int,int,int);
@@ -46,8 +65,8 @@ protected:
     int haelth;
     int attack;
     int defense;
-};
+};*/
 
 
 
-#endif /* Characters_hpp */
+// Characters_hpp

@@ -6,19 +6,20 @@
 //  Copyright © 2016 Elias Farhan. All rights reserved.
 //
 
-#include "Characters.hpp"
+#include "Characters.h"
 
 //////////Character////////////
 
-Character::Character(int health, int attack, int defense, int strength)
+Character::Character(int health_, int attack_, int defense_, int strength_)
 {
-    this->health = health;
-    this->attack = attack;
-this->defense = defense;
-    this->strength = strength;
+    health_ = health;
+    attack_ = attack;
+    defense_ = defense;
+    strength_ = strength;
 }
 
-bool Character::isAlive(){
+bool Character::isAlive()
+{
 return health > 0;
 }
 
@@ -28,11 +29,11 @@ void Character::takeDamage(int damage)
 }
 
 
-int Character::getAttack()
+int Character::getAttack(int attack)
 {
     return attack;
 }
-int getDefense()
+int Character::getDefense(int defense)
 {
     return defense;
 }
@@ -40,20 +41,22 @@ int getDefense()
 
 //////////Monster////////////
 
-Monster::Monster(int health,int attack,int defense, int strength)
+Monster::Monster(int health,int attack,int defense, int strength) : Character(health, attack, defense, strength)
 {
     
 }
-void Monster::fight(Hero* hero)
+void Monster::fight(Hero hero)
 {
-    int damage = (double)attack/hero->getDefense()*strength;
-    if(damage<0);
-        damage = 0
+    int damage = (double)attack/hero.getDefense(defense)*strength;
+    if (damage < 0) 
+    {
+        damage = 0;
+    }
     if(damage > strength)
         damage = strength;
     
     std::cout << "Monster gives "<<damage<<" to Hero\n";
-    ((Character*)hero)->takeDamage(damage);
+    hero.takeDamage(damage);// old ((Character*)hero->takeDamage(damage);
 }
 
 void Monster::death()
@@ -64,13 +67,13 @@ void Monster::death()
 
 //////////Hero////////////
 
-Hero::Hero(int health, int attack, int defense, int strength): Character(health, attack, defense, strength)
+Hero::Hero(int health, int attack, int defense, int strength) : Character(health, attack, defense, strength)
 {
 
 }
 void Hero::fight(Monster* monster)
 {
-int damage = (double)attack/monster->getDefense()*strength;
+int damage = (double)getAttack(attack)/monster->getDefense(defense)* strength;
     if(damage < 0)
         damage = 0;
     if(damage > strength);
